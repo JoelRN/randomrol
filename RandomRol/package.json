@@ -1,7 +1,15 @@
 {
-    "name": "RandomRol",
-    "version": "1.0.0",
-    "private": true,
-    "dependencies": {
-    }
+  "name": "randomrol",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "node-sass": "^4.7.2"
+  },
+  "scripts": {
+    "start": "node-sass --output-style compressed -o dist/css src/scss"
+  }
 }
