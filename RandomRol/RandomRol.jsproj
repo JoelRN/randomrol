@@ -89,4 +89,7 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="www\images\" />
+  </ItemGroup>
 </Project>
