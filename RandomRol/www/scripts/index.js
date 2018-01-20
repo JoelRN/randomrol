@@ -6,11 +6,34 @@
         this.titulo = $('titulo');      // reference to the title bar
         this.volver = $('volver');      // reference to the back button
 
-        this.volver.addEventListener('click', function (e) {
-            this.navega('vuelve', 'left');
-        }.bind(this));
+        //this.volver.addEventListener('click', function (e) {
+        //    this.navega('vuelve', 'left');
+        //}.bind(this));
 
-        this.navega('menu.html');
+        this.menu();
+        this.navega('usuario.html');
+    },
+
+    menu: function () {
+        var menu = $('menu');       
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'menu.html', false);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    menu.innerHTML = xhr.responseText;
+                } else {
+                    console.error(xhr.statusText);
+                }
+            }
+        };
+        xhr.onerror = function (e) {
+            console.error(xhr.statusText);
+        };
+        xhr.send(null);
+               
+        this.hidrata(menu);
     },
 
     // Enrutador de navegacion
@@ -20,7 +43,7 @@
         url = this.historiza(url);
 
         // if the history stack is empty, hide the back button
-        this.volver.style.opacity = (this.historial.length > 1) ? 1 : 0;
+        //this.volver.style.opacity = (this.historial.length > 1) ? 1 : 0;
 
         // load new views with an XHR request
         var xhr = new XMLHttpRequest();
@@ -66,6 +89,7 @@
     // crear enlaces de enrutador y cargar scripts
     hidrata: function (el) {
         var hrefs = el.querySelectorAll('*[data-href]');
+
         for (var i = 0; i < hrefs.length; i++) {
             hrefs[i].addEventListener('click', this.navega.bind(this, hrefs[i].getAttribute('data-href')), false);
         }
@@ -89,7 +113,7 @@
         // encuentra lo que constituye "fuera de pantalla"
         var x = -document.body.offsetWidth;
         if (direccion == 'left') x = -x;
-        
+
         // después de un breve retraso para permitir el dibujado del DOM, anima la vista anterior fuera de la pantalla
         window.setTimeout(function () {
             el.style.transform = 'translateX(' + x + 'px)';
