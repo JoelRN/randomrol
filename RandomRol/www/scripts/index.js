@@ -96,7 +96,7 @@
 
         var scripts = el.querySelectorAll('*[data-script]');
         for (var i = 0; i < scripts.length; i++) {
-            this.require(scripts[i].getAttribute('data-script'));
+            this.importa(scripts[i].getAttribute('data-script'));
         }
 
         var titulo = el.querySelectorAll('.titulo');
@@ -135,6 +135,14 @@
             this.historial.push(url);
         }
         return url;
+    },
+
+    // importa el script
+    importa: function (src) {
+        var el = document.createElement('script');
+        el.src = src;
+        el.async = true;
+        document.head.appendChild(el);
     }
 }
 
