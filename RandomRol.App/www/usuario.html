@@ -11,12 +11,8 @@
             </div>
             <button id="btnLoguea" class="btn btn-lg btn-success btn-block btn-signin bg-primary" type="submit">Iniciar Sesión</button>
         </form><!-- /form -->
-        <a href="#" class="forgot-password">
-            ¿Olvidaste la contraseña?
-        </a>
-        <a href="nuevo-usuario.html" class="crear-usuario">
-            Crear nuevo usuario
-        </a>
+        <a class="nav-link forgot-password" href="#" data-href="forgot-password.html"> ¿Olvidaste la contraseña?</a>
+        <a class="nav-link crear-usuario" href="#" data-href="nuevo-usuario.html"> Crear nuevo usuario</a>
     </div><!-- /card-container -->
 </div>
 
@@ -123,11 +119,14 @@
         margin-bottom: 20px;
     }
 
-    .forgot-password, .crear-usuario {
+    .nav-link.forgot-password, .nav-link.crear-usuario {
         color: rgb(104, 145, 162);
+        padding-left: 0;
+        padding-bottom: 5px;
     }
 
-    .forgot-password:hover, .forgot-password:active, .forgot-password:focus, .crear-usuario:hover, .crear-usuario:active, .crear-usuario:focus {
+        .nav-link.forgot-password:hover, .nav-link.forgot-password:active, .nav-link.forgot-password:focus,
+        .nav-link.crear-usuario:hover, .nav-link.crear-usuario:active, .nav-link.crear-usuario:focus {
             color: #007bff;
-    }
+        }
 </style>
