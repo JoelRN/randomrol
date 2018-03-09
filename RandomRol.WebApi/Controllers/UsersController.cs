@@ -68,7 +68,7 @@ namespace RandomRol.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register([FromBody]UserDto userDto)
+        public IActionResult Registro([FromBody]UserDto userDto)
         {
             // map dto to entity
             var user = _mapper.Map<User>(userDto);
