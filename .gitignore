@@ -259,3 +259,7 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+RandomRol.App/simulation/app-host.js
+RandomRol.App/simulation/app-host.json
+RandomRol.App/simulation/sim-host.js
+RandomRol.App/simulation/sim-host.json
