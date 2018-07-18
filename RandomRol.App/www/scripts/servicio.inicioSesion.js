@@ -7,12 +7,11 @@ app.servicioInicioSesion = {
 
     registraUsuario: async function (usuario) {
         url = urlServ + '';
-        data = usuario;
 
         jQuery.ajax({
             type: "POST",
             url: url,
-            data: JSON.stringify(data),
+            data: JSON.stringify(usuario),
             contentType: "application/json",
             dataType: "json",
             success: this.onSucces()

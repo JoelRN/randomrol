@@ -63,6 +63,9 @@ namespace RandomRol.WebApi.Services
             if (_context.Users.Any(x => x.Username == user.Username))
                 throw new AppException("Username " + user.Username + " is already taken");
 
+            if (_context.Users.Any(x => x.Email == user.Email))
+                throw new AppException("Email " + user.Email + " is already taken");
+
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
@@ -90,8 +93,6 @@ namespace RandomRol.WebApi.Services
             }
 
             // update user properties
-            user.FirstName = userParam.FirstName;
-            user.LastName = userParam.LastName;
             user.Username = userParam.Username;
 
             // update password if it was entered
