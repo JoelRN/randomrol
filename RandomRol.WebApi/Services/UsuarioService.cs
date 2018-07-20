@@ -6,31 +6,31 @@ using RandomRol.WebApi.Helpers;
 
 namespace RandomRol.WebApi.Services
 {
-    public interface IUserService
+    public interface IUsuarioService
     {
-        User Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
-        User Create(User user, string password);
-        void Update(User user, string password = null);
+        Usuario Authenticate(string alias, string password);
+        IEnumerable<Usuario> GetAll();
+        Usuario GetById(int id);
+        Usuario Create(Usuario user, string password);
+        void Update(Usuario user, string password = null);
         void Delete(int id);
     }
 
-    public class UserService : IUserService
+    public class UsuarioService : IUsuarioService
     {
         private DataContext _context;
 
-        public UserService(DataContext context)
+        public UsuarioService(DataContext context)
         {
             _context = context;
         }
 
-        public User Authenticate(string username, string password)
+        public Usuario Authenticate(string alias, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(alias) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = _context.Users.SingleOrDefault(x => x.Username == username);
+            var user = _context.Usuarios.SingleOrDefault(x => x.Alias == alias);
 
             // check if username exists
             if (user == null)
@@ -44,27 +44,27 @@ namespace RandomRol.WebApi.Services
             return user;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<Usuario> GetAll()
         {
-            return _context.Users;
+            return _context.Usuarios;
         }
 
-        public User GetById(int id)
+        public Usuario GetById(int id)
         {
-            return _context.Users.Find(id);
+            return _context.Usuarios.Find(id);
         }
 
-        public User Create(User user, string password)
+        public Usuario Create(Usuario user, string password)
         {
             // validation
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
-                throw new AppException("Username " + user.Username + " is already taken");
+            if (_context.Usuarios.Any(x => x.Alias == user.Alias))
+                throw new AppException("Alias " + user.Alias + " en uso");
 
-            if (_context.Users.Any(x => x.Email == user.Email))
-                throw new AppException("Email " + user.Email + " is already taken");
+            if (_context.Usuarios.Any(x => x.Email == user.Email))
+                throw new AppException("Email " + user.Email + " en uso");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -72,28 +72,28 @@ namespace RandomRol.WebApi.Services
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.Users.Add(user);
+            _context.Usuarios.Add(user);
             _context.SaveChanges();
 
             return user;
         }
 
-        public void Update(User userParam, string password = null)
+        public void Update(Usuario userParam, string password = null)
         {
-            var user = _context.Users.Find(userParam.Id);
+            var user = _context.Usuarios.Find(userParam.Id);
 
             if (user == null)
                 throw new AppException("User not found");
 
-            if (userParam.Username != user.Username)
+            if (userParam.Alias != user.Alias)
             {
                 // username has changed so check if the new username is already taken
-                if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new AppException("Username " + userParam.Username + " is already taken");
+                if (_context.Usuarios.Any(x => x.Alias == userParam.Alias))
+                    throw new AppException("Alias " + userParam.Alias + " is already taken");
             }
 
             // update user properties
-            user.Username = userParam.Username;
+            user.Alias = userParam.Alias;
 
             // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))
@@ -105,16 +105,16 @@ namespace RandomRol.WebApi.Services
                 user.PasswordSalt = passwordSalt;
             }
 
-            _context.Users.Update(user);
+            _context.Usuarios.Update(user);
             _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.Usuarios.Find(id);
             if (user != null)
             {
-                _context.Users.Remove(user);
+                _context.Usuarios.Remove(user);
                 _context.SaveChanges();
             }
         }

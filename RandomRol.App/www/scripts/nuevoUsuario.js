@@ -6,7 +6,7 @@
 
     registraNuevoUsuario: async function () {
         usuario = {
-            "Username": $('txtUsuario').value,
+            "Alias": $('txtUsuario').value,
             "Email": $('txtEmail').value,
             "Password": $('txtPassword').value
         };

@@ -17,27 +17,27 @@ namespace RandomRol.WebApi.Controllers
 {
     [Authorize]
     [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsuarioController : Controller
     {
-        private IUserService _userService;
+        private IUsuarioService _usuarioService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        public UsersController(
-            IUserService userService,
+        public UsuarioController(
+            IUsuarioService usuarioService,
             IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
-            _userService = userService;
+            _usuarioService = usuarioService;
             _mapper = mapper;
             _appSettings = appSettings.Value;
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]UserDto userDto)
+        public IActionResult Authenticate([FromBody]UsuarioDto usuarioDto)
         {
-            var user = _userService.Authenticate(userDto.Username, userDto.Password);
+            var user = _usuarioService.Authenticate(usuarioDto.Alias, usuarioDto.Password);
 
             if (user == null)
                 return Unauthorized();
@@ -59,22 +59,22 @@ namespace RandomRol.WebApi.Controllers
             // return basic user info (without password) and token to store client side
             return Ok(new {
                 Id = user.Id,
-                Username = user.Username,
+                Alias = user.Alias,
                 Token = tokenString
             });
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Registro([FromBody]UserDto userDto)
+        public IActionResult Registro([FromBody]UsuarioDto usuarioDto)
         {
             // map dto to entity
-            var user = _mapper.Map<User>(userDto);
+            var usuario = _mapper.Map<Usuario>(usuarioDto);
 
             try 
             {
                 // save 
-                _userService.Create(user, userDto.Password);
+                _usuarioService.Create(usuario, usuarioDto.Password);
                 return Ok();
             } 
             catch(AppException ex)
@@ -87,30 +87,30 @@ namespace RandomRol.WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users =  _userService.GetAll();
-            var userDtos = _mapper.Map<IList<UserDto>>(users);
-            return Ok(userDtos);
+            var usuarios = _usuarioService.GetAll();
+            var usuariosDtos = _mapper.Map<IList<UsuarioDto>>(usuarios);
+            return Ok(usuariosDtos);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var user =  _userService.GetById(id);
-            var userDto = _mapper.Map<UserDto>(user);
-            return Ok(userDto);
+            var usuario = _usuarioService.GetById(id);
+            var usuarioDto = _mapper.Map<UsuarioDto>(usuario);
+            return Ok(usuarioDto);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]UserDto userDto)
+        public IActionResult Update(int id, [FromBody]UsuarioDto usuarioDto)
         {
             // map dto to entity and set id
-            var user = _mapper.Map<User>(userDto);
+            var user = _mapper.Map<Usuario>(usuarioDto);
             user.Id = id;
 
             try 
             {
                 // save 
-                _userService.Update(user, userDto.Password);
+                _usuarioService.Update(user, usuarioDto.Password);
                 return Ok();
             } 
             catch(AppException ex)
@@ -123,7 +123,7 @@ namespace RandomRol.WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _userService.Delete(id);
+            _usuarioService.Delete(id);
             return Ok();
         }
     }
