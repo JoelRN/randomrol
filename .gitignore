@@ -263,4 +263,4 @@ RandomRol.App/simulation/app-host.js
 RandomRol.App/simulation/app-host.json
 RandomRol.App/simulation/sim-host.js
 RandomRol.App/simulation/sim-host.json
-RandomRol.WebApi/appsettings.json
+*.appsettings.json
