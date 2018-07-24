@@ -18,9 +18,9 @@ namespace RandomRol.WebApi.Services
 
     public class UsuarioService : IUsuariosService
     {
-        private DataContext _context;
+        private RandomRolContext _context;
 
-        public UsuarioService(DataContext context)
+        public UsuarioService(RandomRolContext context)
         {
             _context = context;
         }

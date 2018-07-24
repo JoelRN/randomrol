@@ -32,7 +32,7 @@ namespace RandomRol.WebApi
         {
             services.AddCors();
             //services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"));
-            services.AddDbContext<DataContext>(options =>
+            services.AddDbContext<RandomRolContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();

@@ -19,12 +19,12 @@ namespace RandomRol.WebApi.Controllers
     [Route("[controller]")]
     public class UsuarioController : Controller
     {
-        private IUsuarioService _usuarioService;
+        private IUsuariosService _usuarioService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public UsuarioController(
-            IUsuarioService usuarioService,
+            IUsuariosService usuarioService,
             IMapper mapper,
             IOptions<AppSettings> appSettings)
         {

@@ -1,6 +1,9 @@
+﻿using System;
+using System.Collections.Generic;
+
 namespace RandomRol.WebApi.Entities
 {
-    public class Usuarios
+    public partial class Usuarios
     {
         public int Id { get; set; }
         public string Alias { get; set; }
