@@ -1,6 +1,6 @@
 namespace RandomRol.WebApi.Entities
 {
-    public class Usuario
+    public class Usuarios
     {
         public int Id { get; set; }
         public string Alias { get; set; }

@@ -64,7 +64,7 @@ namespace RandomRol.WebApi
             });
 
             // configure DI for application services
-            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IUsuariosService, UsuarioService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

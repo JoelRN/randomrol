@@ -8,8 +8,8 @@ namespace RandomRol.WebApi.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<Usuario, UsuarioDto>();
-            CreateMap<UsuarioDto, Usuario>();
+            CreateMap<Usuarios, UsuarioDto>();
+            CreateMap<UsuarioDto, Usuarios>();
         }
     }
 }

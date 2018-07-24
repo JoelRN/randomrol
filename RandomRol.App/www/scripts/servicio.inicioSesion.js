@@ -1,4 +1,4 @@
-﻿urlServ = 'http://localhost:4500/Usuario';
+﻿urlServ = 'http://localhost:4500/Usuarios';
 
 app.servicioInicioSesion = {
     init: function () {

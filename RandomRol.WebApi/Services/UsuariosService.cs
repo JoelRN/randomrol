@@ -6,7 +6,7 @@ using RandomRol.WebApi.Helpers;
 
 namespace RandomRol.WebApi.Services
 {
-    public interface IUsuarioService
+    public interface IUsuariosService
     {
         Usuarios Authenticate(string alias, string password);
         IEnumerable<Usuarios> GetAll();
@@ -16,11 +16,11 @@ namespace RandomRol.WebApi.Services
         void Delete(int id);
     }
 
-    public class UsuariosService : IUsuarioService
+    public class UsuarioService : IUsuariosService
     {
         private DataContext _context;
 
-        public UsuariosService(DataContext context)
+        public UsuarioService(DataContext context)
         {
             _context = context;
         }
