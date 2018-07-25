@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RandomRol.WebApi.Entities;
+using RandomRol.WebApi.Data;
 using RandomRol.WebApi.Helpers;
 
 namespace RandomRol.WebApi.Services
@@ -58,13 +59,13 @@ namespace RandomRol.WebApi.Services
         {
             // validation
             if (string.IsNullOrWhiteSpace(password))
-                throw new AppException("Password is required");
+                throw new AppException("Contraseña requerida");
 
             if (_context.Usuarios.Any(x => x.Alias == user.Alias))
-                throw new AppException("Alias " + user.Alias + " en uso");
+                throw new AppException("Alias '" + user.Alias + "' en uso");
 
             if (_context.Usuarios.Any(x => x.Email == user.Email))
-                throw new AppException("Email " + user.Email + " en uso");
+                throw new AppException("Email '" + user.Email + "' en uso");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);

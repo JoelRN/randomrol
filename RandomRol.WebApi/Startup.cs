@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using RandomRol.WebApi.Data;
 using RandomRol.WebApi.Helpers;
 using RandomRol.WebApi.Services;
 using AutoMapper;

@@ -2,7 +2,7 @@ using AutoMapper;
 using RandomRol.WebApi.Dtos;
 using RandomRol.WebApi.Entities;
 
-namespace RandomRol.WebApi.Helpers
+namespace RandomRol.WebApi.Data
 {
     public class AutoMapperProfile : Profile
     {

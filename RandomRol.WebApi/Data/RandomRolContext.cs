@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using RandomRol.WebApi.Entities;
 
-namespace RandomRol.WebApi.Helpers
+namespace RandomRol.WebApi.Data
 {
     public partial class RandomRolContext : DbContext
     {
