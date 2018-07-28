@@ -17,6 +17,7 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Persistencia\EntityConfigurations\" />
     <Folder Include="Properties\PublishProfiles\" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
   </ItemGroup>

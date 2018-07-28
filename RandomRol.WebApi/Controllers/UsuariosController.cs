@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RandomRol.WebApi.Services;
 using RandomRol.WebApi.Dtos;
 using AutoMapper;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using RandomRol.WebApi.Entities;
 using Microsoft.AspNetCore.Authorization;
+using RandomRol.WebApi.Persistencia;
 
 namespace RandomRol.WebApi.Controllers
 {
@@ -19,34 +19,35 @@ namespace RandomRol.WebApi.Controllers
     [Route("[controller]")]
     public class UsuariosController : Controller
     {
-        private IUsuariosService _usuarioService;
+        UnitOfWork UnitOfWork;
+
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public UsuariosController(
-            IUsuariosService usuariosService,
             IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
-            _usuarioService = usuariosService;
             _mapper = mapper;
             _appSettings = appSettings.Value;
+            UnitOfWork = new UnitOfWork(new RandomRolContext(_appSettings));
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UsuarioDto usuarioDto)
         {
-            var user = _usuarioService.Authenticate(usuarioDto.Alias, usuarioDto.Password);
+             
+            var user = UnitOfWork.Usuarios.Autenticar(usuarioDto.Alias, usuarioDto.Password);
 
             if (user == null)
                 return Unauthorized();
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_appSettings.DefaultConnection);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
@@ -57,7 +58,8 @@ namespace RandomRol.WebApi.Controllers
             var tokenString = tokenHandler.WriteToken(token);
 
             // return basic user info (without password) and token to store client side
-            return Ok(new {
+            return Ok(new
+            {
                 Id = user.Id,
                 Alias = user.Alias,
                 Token = tokenString
@@ -71,13 +73,16 @@ namespace RandomRol.WebApi.Controllers
             // map dto to entity
             var usuario = _mapper.Map<Usuarios>(usuarioDto);
 
-            try 
+            try
             {
+
+                //_repositorioUsuarios.
+
                 // save 
-                _usuarioService.Create(usuario, usuarioDto.Password);
+                UnitOfWork.Usuarios.Crear(usuario, usuarioDto.Password);
                 return Ok();
-            } 
-            catch(AppException ex)
+            }
+            catch (AppException ex)
             {
                 // return error message if there was an exception
                 return BadRequest(ex.Message);
@@ -87,7 +92,7 @@ namespace RandomRol.WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var usuarios = _usuarioService.GetAll();
+            var usuarios = UnitOfWork.Usuarios.GetAll();
             var usuariosDtos = _mapper.Map<IList<UsuarioDto>>(usuarios);
             return Ok(usuariosDtos);
         }
@@ -95,7 +100,7 @@ namespace RandomRol.WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var usuario = _usuarioService.GetById(id);
+            var usuario = UnitOfWork.Usuarios.Get(id);
             var usuarioDto = _mapper.Map<UsuarioDto>(usuario);
             return Ok(usuarioDto);
         }
@@ -107,13 +112,13 @@ namespace RandomRol.WebApi.Controllers
             var user = _mapper.Map<Usuarios>(usuarioDto);
             user.Id = id;
 
-            try 
+            try
             {
                 // save 
-                _usuarioService.Update(user, usuarioDto.Password);
+                UnitOfWork.Usuarios.Actualizar(user, usuarioDto.Password);
                 return Ok();
-            } 
-            catch(AppException ex)
+            }
+            catch (AppException ex)
             {
                 // return error message if there was an exception
                 return BadRequest(ex.Message);
@@ -123,7 +128,7 @@ namespace RandomRol.WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _usuarioService.Delete(id);
+            UnitOfWork.Usuarios.Remove(UnitOfWork.Usuarios.Get(id));
             return Ok();
         }
     }

@@ -2,24 +2,27 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using RandomRol.WebApi.Entities;
 
-namespace RandomRol.WebApi.Data
+using RandomRol.WebApi.Helpers;
+
+namespace RandomRol.WebApi.Persistencia
 {
     public partial class RandomRolContext : DbContext
     {
-        public RandomRolContext()
-        {            
+        private readonly AppSettings _appSettings;
+
+        public RandomRolContext(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
         }
 
-        public RandomRolContext(DbContextOptions<RandomRolContext> options, IConfiguration configuration)
+        public RandomRolContext(DbContextOptions<RandomRolContext> options)
             : base(options)
         {
-            Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         public virtual DbSet<LogPartidas> LogPartidas { get; set; }
         public virtual DbSet<Partidas> Partidas { get; set; }
         public virtual DbSet<Pjs> Pjs { get; set; }
@@ -34,7 +37,7 @@ namespace RandomRol.WebApi.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                optionsBuilder.UseMySql(_appSettings.DefaultConnection);                
             }
         }
 
