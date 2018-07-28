@@ -265,4 +265,4 @@ RandomRol.App/simulation/sim-host.js
 RandomRol.App/simulation/sim-host.json
 
 # Cadenas de conexion
-**/appsettings.json
+RandomRol.WebApi/appsettings.json
