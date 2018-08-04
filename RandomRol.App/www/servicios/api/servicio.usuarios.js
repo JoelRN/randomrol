@@ -12,11 +12,15 @@ var api_usuarios = {
         api.llamadaAjax('Usuarios', usuario, eventoOk, function () { });
     },
 
-    autenticaUsuario: function (n, p) {
-        var datos = JSON.stringify({ "nombre": n, "pwd": p });
-        var eventOk = null;
-        var eventoError = null;
+    autenticaUsuario: function (usuario) {
+        var eventOk = function () {
+            servicio_alerta.Ok("Usuario logueado.");
+        };
 
-        api.llamadaAjax('Usuarios/authenticate', datos, eventOk, eventoError);
+        var eventError = function () {
+            servicio_alerta.error("Datos de acceso incorrectos.");
+        };
+
+        api.llamadaAjax('Usuarios/authenticate', usuario, eventOk, eventError);
     }
 };

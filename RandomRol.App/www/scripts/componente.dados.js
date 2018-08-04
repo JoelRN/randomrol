@@ -1,4 +1,4 @@
-﻿app.dados = {
+﻿componente_dados = {
     init: function () {
         this.button = $('btnLanzaDados');
         this.button.addEventListener('click', this.lanzaDados.bind(this));
@@ -20,4 +20,4 @@
     }
 };
 
-app.dados.init();
+componente_dados.init();

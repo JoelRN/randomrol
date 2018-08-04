@@ -37,7 +37,6 @@ namespace RandomRol.WebApi.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UsuarioDto usuarioDto)
         {
-             
             var user = UnitOfWork.Usuarios.Autenticar(usuarioDto.Alias, usuarioDto.Password);
 
             if (user == null)

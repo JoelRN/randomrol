@@ -1,4 +1,4 @@
-﻿app.nuevoUsuario = {
+﻿componente_nuevoUsuario = {
     init: function () {
         this.form = $('form-nuevoUsuario');
         this.form.addEventListener('submit', function (event) {
@@ -13,7 +13,7 @@
                     $('txtPassword').value = "";
                     $('txtPassword2').value = "";
                 } else {
-                    app.nuevoUsuario.registraNuevoUsuario();
+                    componente_nuevoUsuario.registraNuevoUsuario();
                 }
             }
         });
@@ -31,4 +31,4 @@
     }
 };
 
-app.nuevoUsuario.init();
+componente_nuevoUsuario.init();

@@ -23,7 +23,10 @@ var api = {
 
                 mensaje += "<p>" + xhr.responseText + "</p>";
 
-                servicio_alerta.error(mensaje);
+                if (xhr.status != 401) { 
+                    servicio_alerta.error(mensaje);
+                }
+
                 eventoError();                
             }
         });

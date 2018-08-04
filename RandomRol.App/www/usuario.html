@@ -1,7 +1,7 @@
 ﻿<div class="contenido container">
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="images/login-avatar.png" width="200" height="200" />
-        <form class="form-login">
+        <form id="form-usuario" class="form-login">
             <input type="text" id="inputUsuario" class="form-control" placeholder="Usuario" required autofocus>
             <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
             <div id="recordarme" class="checkbox">
@@ -16,7 +16,8 @@
     </div><!-- /card-container -->
 </div>
 
-<div data-script="scripts/usuario.js"></div>
+<div data-script="dtos/dto.usuario.js"></div>
+<div data-script="scripts/componente.usuario.js"></div>
 <div data-script="servicios/api/servicio.usuarios.js"></div>
 <style>
     /* Generales */
