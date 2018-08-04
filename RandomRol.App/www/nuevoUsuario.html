@@ -1,18 +1,22 @@
-﻿<div class="contenido container">
+﻿<input id="muestraVolver" type="hidden" />
+<div class="contenido container">
     <div class="card card-container">
         <h2>Nuevo usuario:</h2>
-        <form class="form-signIn">
+        <form id ="form-nuevoUsuario" class="form-signIn">
             <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario" required autofocus>
             <input type="email" id="txtEmail" class="form-control" placeholder="Email" required autofocus />
             <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña" required>
             <input type="password" id="txtPassword2" class="form-control" placeholder="Repita contraseña" required />
-            <button id="btnNuevoUsuario" class="btn btn-lg btn-success btn-block btn-signin bg-primary">Crear nuevo usuario</button>
+            <!--<button id="btnNuevoUsuario" class="btn btn-lg btn-success btn-block btn-signin bg-primary">Crear nuevo usuario</button>-->
+            <button id="btnNuevoUsuario" class="btn btn-primary" type="submit">Crear nuevo usuario</button>
+            
         </form><!-- /form -->
     </div><!-- /card-container -->
 </div>
 
+<div data-script="dtos/dto.usuario.js"></div>
 <div data-script="scripts/nuevoUsuario.js"></div>
-<div data-script="scripts/servicio.inicioSesion.js"></div>
+<div data-script="servicios/api/servicio.usuarios.js"></div>
 <style>
     /* Generales */
     body, html {

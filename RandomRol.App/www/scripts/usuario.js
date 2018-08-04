@@ -7,7 +7,7 @@
     autenticaUsuario: function () {
         nombre = 'admin';
         pwd = 'admin';
-        app.servicioInicioSesion.autenticaUsuario(nombre, pwd);
+        api_usuarios.autenticaUsuario(nombre, pwd);
     }
 };
 
