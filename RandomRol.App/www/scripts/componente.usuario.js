@@ -13,6 +13,13 @@
             }
 
         });
+
+        if (localStorage.getItem("login") != undefined) {
+            $("inputUsuario").value = localStorage.getItem("login");
+            $("inputPassword").value = localStorage.getItem("pwd");
+        } else {
+            localStorage.clear();
+        }
     },
 
     autenticaUsuario: function () {
@@ -25,3 +32,5 @@
 };
 
 componente_usuario.init();
+
+document.addEventListener('deviceready', function (e) { componente_usuario.init(); }, false);

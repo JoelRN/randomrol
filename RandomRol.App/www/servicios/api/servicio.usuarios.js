@@ -5,7 +5,7 @@ var api_usuarios = {
     },
 
     registraUsuario: function (usuario) {
-        var eventoOk = function () {
+        var eventoOk = function (respuesta) {
             servicio_alerta.Ok("Usuario " + usuario.Alias + " creado correctamente");
         };
 
@@ -13,11 +13,20 @@ var api_usuarios = {
     },
 
     autenticaUsuario: function (usuario) {
-        var eventOk = function () {
+        if (jQuery("#recordarme input")[0].checked) {
+            localStorage.setItem("login", usuario.Alias);
+            localStorage.setItem("pwd", usuario.Password);
+        } else {
+            localStorage.clear();
+        }
+
+        var eventOk = function (respuesta) {
+            localStorage.setItem("usuario", respuesta);
             servicio_alerta.Ok("Usuario logueado.");
         };
 
         var eventError = function () {
+            localStorage.clear();
             servicio_alerta.error("Datos de acceso incorrectos.");
         };
 

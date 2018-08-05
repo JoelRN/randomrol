@@ -12,8 +12,7 @@ var api = {
             contentType: "application/json",
             dataType: "json",
             success: function (response) {
-                console.log(response.result);  
-                eventoOk();
+                eventoOk(response);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 var mensaje = "";
