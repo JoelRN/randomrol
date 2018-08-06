@@ -14,11 +14,11 @@
 
         });
 
-        if (localStorage.getItem("login") != undefined) {
-            $("inputUsuario").value = localStorage.getItem("login");
-            $("inputPassword").value = localStorage.getItem("pwd");
+        if (servicio_datos.get(claves.LOGIN) != undefined) {
+            $("inputUsuario").value = servicio_datos.get(claves.LOGIN).Alias;
+            $("inputPassword").value = servicio_datos.get(claves.LOGIN).Password;
         } else {
-            localStorage.clear();
+            servicio_datos.limpiar();
         }
     },
 
@@ -30,7 +30,5 @@
         api_usuarios.autenticaUsuario(usuario);
     }
 };
-
-componente_usuario.init();
 
 document.addEventListener('deviceready', function (e) { componente_usuario.init(); }, false);
