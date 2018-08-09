@@ -139,10 +139,13 @@
 
     // importa el script
     importa: function (src) {
-        var el = document.createElement('script');
-        el.src = src;
-        el.async = true;
-        document.head.appendChild(el);
+        // Si no existe se añade
+        if (jQuery("script[src$='" + src + "']").length == 0) {
+            var el = document.createElement('script');
+            el.src = src;
+            el.async = true;
+            document.head.appendChild(el);
+        }        
     }
 }
 

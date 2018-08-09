@@ -1,7 +1,7 @@
 ﻿<div class="contenido container">
-    <div class="card card-container">
-        <img id="profile-img" class="profile-img-card" src="images/login-avatar.png" width="200" height="200" />
-        <form id="form-usuario" class="form-login">
+    <div id="contenedor-login" class="card card-container">
+        <img class="profile-img-card" src="images/login-avatar.png" width="200" height="200" />
+        <form id="form-login" class="form-login">
             <input type="text" id="inputUsuario" class="form-control" placeholder="Usuario" required autofocus>
             <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
             <div id="recordarme" class="checkbox">
@@ -10,20 +10,27 @@
                 </label>
             </div>
             <button id="btnLoguea" class="btn btn-lg btn-success btn-block btn-signin bg-primary" type="submit">Iniciar Sesión</button>
-        </form><!-- /form -->
+        </form>
         <a class="nav-link forgot-password" href="#" data-href="recordarClave.html"> ¿Olvidaste la contraseña?</a>
         <a class="nav-link crear-usuario" href="#" data-href="nuevoUsuario.html"> Crear nuevo usuario</a>
-    </div><!-- /card-container -->
+    </div>
+    <div id="contenedor-usuario" class="card card-container" hidden>
+        <img id="profile-img" class="profile-img-card" src="images/login-avatar.png" width="200" height="200" />
+        <form id="form-usuario" class="form-login">
+            <button id="btnCierraSesion" class="btn btn-lg btn-success btn-block btn-signin bg-primary" type="submit">Cerrar Sesión</button>
+        </form>
+    </div>
 </div>
 
+<div data-script="servicios/servicio.datos.js"></div>
 <div data-script="dtos/dto.usuario.js"></div>
 <div data-script="scripts/componente.usuario.js"></div>
 <div data-script="servicios/api/servicio.usuarios.js"></div>
 <style>
     /* Generales */
     body, html {
-       margin: 0;
-       padding: 0;
+        margin: 0;
+        padding: 0;
     }
 
     .btn {

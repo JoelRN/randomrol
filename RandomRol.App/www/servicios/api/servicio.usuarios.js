@@ -26,15 +26,15 @@ var api_usuarios = {
             servicio_datos.limpiar();
         }
 
-        var eventOk = function (respuesta) {
-            servicio_datos.guarda(claves.USUARIO, respuesta);            
-            servicio_alerta.Ok("Usuario logueado.");
-            app.navega("usuario.html");
+        var eventOk = async function (respuesta) {
+            await servicio_datos.guarda(claves.USUARIO, respuesta);            
+            await servicio_alerta.Ok("Usuario logueado.");
+            await componente_usuario.init();
         };
 
-        var eventError = function () {
-            servicio_datos.limpiar();
-            servicio_alerta.error("Datos de acceso incorrectos.");
+        var eventError = async function () {
+            await servicio_datos.limpiar();
+            await servicio_alerta.error("Datos de acceso incorrectos.");            
         };
 
         api.llamadaAjax('Usuarios/authenticate', usuario, eventOk, eventError);

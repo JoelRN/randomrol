@@ -1,5 +1,6 @@
 ﻿componente_nuevoUsuario = {
     init: function () {
+
         this.form = $('form-nuevoUsuario');
         this.form.addEventListener('submit', function (event) {
             event.preventDefault();

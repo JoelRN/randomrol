@@ -14,11 +14,11 @@
         var muestraVolver = $("muestraVolver");
 
         if (muestraVolver != null) {
-            jQuery("#botonDesplegable").attr("hidden", "hidden");
-            jQuery("#botonVolver").removeAttr("hidden");
+            util_jQuery.oculta("#botonDesplegable");
+            util_jQuery.muestra("#botonVolver");
         } else {
-            jQuery("#botonDesplegable").removeAttr("hidden");
-            jQuery("#botonVolver").attr("hidden", "hidden");
+            util_jQuery.muestra("#botonDesplegable");
+            util_jQuery.oculta("#botonVolver");
         }
     }
 };
